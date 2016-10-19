@@ -67,3 +67,53 @@ Strict mode makes several changes to normal JavaScript semantics.
   ```
   
   
+# JavaScript Template Engine
+
+## Handlebars
+
+### Variables
+  ```javascript 
+  // HTML
+  <h1>{{title}}</h1>
+  <p>{{body}}</p>
+  
+  // JavaScript
+  {
+    title: "Express.js Guide",
+    body: "The Comprehensive Book on Express.js"
+  }
+  
+  // renders:
+  <h1>Express.js Guide</h1>
+  <p>The Comprehensive Book on Express.js</p>
+  ```
+ 
+### Iteration(each)
+
+Inside the block, we can use @key for the former (objects), and @index for the later (arrays).
+
+  ```javascript 
+  // HTML
+  <div>
+    {{#each languages}}
+      <p>{{@index}}. {{this}}</p>
+    {{/each}}
+  </div>
+  
+  // JavaScript
+  {languages: ['php', 'node', 'ruby']}
+  
+  // renders:
+  <div>
+    <p>0. php</p>
+    <p>1. node</p>
+    <p>2. ruby</p>
+  </div>
+  
+  ```
+  
+ ### Unescaped Output
+ 
+ By default, Handlebars escapes values. If you don’t want Handlebars to escape a value, use triple curly braces: {{{ and }}}.
+
+  
