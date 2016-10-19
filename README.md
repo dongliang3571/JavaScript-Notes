@@ -14,3 +14,56 @@ Strict mode makes several changes to normal JavaScript semantics.
   "use strict";
   var v = "Hi!  I'm a strict mode script!"; // Now this line of code is in strict mode
   ```
+
+## Import and Export
+- Export
+  ```javascript
+  ////////////////// Method 1 //////////////////////
+  // File name newModule.js
+  function myPrint() {
+    console.log("myPrint");
+  }
+  
+  function anotherPrint() {
+    console.log("anotherPrint");
+  }
+  
+  module.exports.my = myPrint;  // Just function name, not calling the funciton(no parentheses)
+  module.exports.another = anotherPrint;  // Just function name, not calling the funciton(no parentheses)
+  
+  ////////////////// Method 2 //////////////////////
+  // Better way to do just function exporting
+  // Write function definition inside module.exports(it's an object after all)
+  
+  // File name newModule.js
+  module.exports = {
+    myPrint: function() {
+      console.log("myPrint");
+    },
+    anotherPrint: function() {
+      console.log("anotherPrint");
+    }
+  };
+  ```
+  
+  
+- Import
+  ```javascript
+  ////////////////////////// import custom module ////////////////////////
+  
+  ////////////////// Method 1 //////////////////////
+  var newModule = require('./newModule');  // File name without suffix .js
+  newModule.my(); // prints "myPrint"
+  newModule.anohter();  // prints "anotherPrint"
+  
+  ////////////////// Method 2 //////////////////////
+  var newModule = require('./newModule');  // File name without suffix .js
+  newModule.myPrint(); // prints "myPrint"
+  newModule.anohterPrint();  // prints "anotherPrint"
+  
+  
+  ///////////////// import core module(built-in module) ///////////////////
+  var coreModule = require('express');  // No suffix .js
+  ```
+  
+  
