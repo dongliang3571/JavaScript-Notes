@@ -112,7 +112,7 @@ Inside the block, we can use @key for the former (objects), and @index for the l
   
   ```
   
- ### Unescaped Output
+### Unescaped Output
  
  By default, Handlebars escapes values. Use triple curly braces: `{{{ and }}}` if you don’t want Handlebars to escape a value, 
 
