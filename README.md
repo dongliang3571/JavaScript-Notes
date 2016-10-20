@@ -141,8 +141,8 @@ Inside the block, we can use @key for the former (objects), and @index for the l
   <ul>
     <li>
       <span>0</span>
-      <span>unescaped: <a>a</a> vs. </span>
-      <span>escaped: &lt;a&gt;a&lt;/a&gt;</span>
+      <span>unescaped: <a>a</a> vs. </span> // This is unescaped, so that original value is shown
+      <span>escaped: &lt;a&gt;a&lt;/a&gt;</span>  // This is escaped, so escaped value is shown
     </li>
     <li>
       <span>1</span>
@@ -156,3 +156,163 @@ Inside the block, we can use @key for the former (objects), and @index for the l
     </li>
     </ul>
   ```
+
+### Conditions(if)
+
+if is another built-in helper invoked via #. For example, this Handlebars code:
+
+  ```javascript
+  // HTML
+  {{#if user.admin}}
+    <button class="launch">Launch Spacecraft</button>
+  {{else}}
+    <button class="login"> Log in</button>
+  {{/if}}
+  
+  // JavaScript
+  {
+    user: {
+      admin: true
+    }
+  }
+  
+  // render:
+  <button class="launch">Launch Spacecraft</button>
+  ```
+  
+### Unless
+To inverse an if not ... (if ! ...)statement (convert negative to positive), we can harness the unless built-in helper block. For example, the previous code snippet can be rewritten with unless.
+
+  ```javascript
+  // HTML
+  {{#unless user.admin}}
+    <button class="login"> Log in</button>
+  {{else}}
+    <button class="launch">Launch Spacecraft</button>
+  {{/unless}}
+  
+  // JavaScript
+  {
+    user: {
+      admin: true
+    }
+  }
+  
+  // render:
+  <button class="launch">Launch Spacecraft</button>
+  ```
+  
+### With
+In case there’s an object with nested properties, and there are a lot of them, it’s possible to use `with` to pass the context.
+
+  ```javascript
+  // HTML
+  {{#with user}}
+  <p>{{name}}</p>
+  {{#with contact}}
+  <span>Twitter: @{{twitter}}</span>
+  {{/with}}
+  <span>Address: {{address.city}},
+  {{/with}}
+  {{user.address.state}}</span>
+  
+  // JavaScript
+  {user: {
+    contact: {
+      email: 'hi@azat.co',
+      twitter: 'azat_co'
+    },
+    address: {
+      city: 'San Francisco',
+      state: 'California'
+    },
+    name: 'Azat'
+  }}
+  
+  // render:
+  <p>Azat</p>
+  <span>Twitter: @azat_co</span>
+  <span>Address: San Francisco, California
+  </span>
+  ```
+  
+### Comments
+To output comments, use regular HTML <!-- and -->. To hide comments in the final output, use {{! and }} or {{!-- and --}}. For example:
+
+  ```javascript
+  <!-- content goes here -->
+  <p>Node.js is a non-blocking I/O for scalable apps.</p>
+  {{! @todo change this to a class}}
+  {{!-- add the example on {{#if}} --}}
+  <p id="footer">Copyright 2014 Azat</p>
+  
+  // Output
+  <!-- content goes here -->
+  <p>Node.js is a non-blocking I/O for scalable apps.</p>
+  <p id="footer">Copyright 2014 Azat</p>
+  ```
+
+### Custom Helpers
+
+Custom Handlebars helpers are similar to built-in helper blocks and Jade mixins. To use custom helpers, we need to create them as a JavaScript function and register them with the Handlebars instance.
+This Handlebars template uses our custom helper table which we’ll register (i.e., define) later in the JavaScript/Node.js code:
+
+`{{table node}}`
+
+Here goes the JavaScript/Node.js that tells the Handlebars compiler what to do when it encounters the custom table function (i.e., print an HTML table out of the provided array):
+
+  ```javascript
+  Handlebars.registerHelper('table', function(data) {
+  var str = '<table>';
+  for (var i = 0; i < data.length; i++ ) {
+    str += '<tr>';
+    for (var key in data[i]) {
+      str += '<td>' + data[i][key] + '</td>';
+    };
+    str += '</tr>';
+   };
+   str += '</table>';
+
+   return new Handlebars.SafeString (str);
+  });
+  
+  
+  // data
+  
+  {
+    node:[
+      {name: 'express', url: 'http://expressjs.com/'},
+      {name: 'hapi', url: 'http://spumko.github.io/'},
+      {name: 'compound', url: 'http://compoundjs.com/'},
+      {name: 'derby', url: 'http://derbyjs.com/'}
+    ]
+  }
+  
+  // Output
+  <table>
+    <tr>
+        <td>express</td>
+        <td>http://expressjs.com/
+    </td>
+    </tr>
+        <tr><td>hapi</td>
+    <td>http://spumko.github.io/
+    </td>
+    </tr>
+    <tr>
+        <td>compound</td>
+        <td>http://compoundjs.com/
+    </td>
+    </tr>
+    <tr>
+        <td>derby</td>
+        <td>http://derbyjs.com/</td>
+    </tr>
+  </table>
+
+  ```
+  
+### Includes (Partials)
+
+Includes or partials templates in Handlebars are interpreted by the `{{>partial_name}}` expression. Partials are akin to helpers and are registered with `Handlebars.registerPartial(name, source)`, where name is a string and source is a Handlebars template code for the partial.
+
