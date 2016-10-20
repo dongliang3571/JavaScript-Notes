@@ -114,6 +114,45 @@ Inside the block, we can use @key for the former (objects), and @index for the l
   
  ### Unescaped Output
  
- By default, Handlebars escapes values. If you don’t want Handlebars to escape a value, use triple curly braces: {{{ and }}}.
+ By default, Handlebars escapes values. Use triple curly braces: `{{{ and }}}` if you don’t want Handlebars to escape a value, 
 
+  ```javascript
+  // HTML
+  <ul>
+    {{#each arr}}
+    <li>
+      <span>{{@index}}</span>
+      <span>unescaped: {{{this}}} vs. </span>
+      <span>escaped: {{this}}</span>
+    </li>
+    {{/each}}
+  </ul>
   
+  // JavaScript
+  {
+    arr: [
+      '<a>a</a>',
+      '<i>italic</i>',
+      '<strong>bold</strong>'
+    ]
+  }
+  
+  // render:
+  <ul>
+    <li>
+      <span>0</span>
+      <span>unescaped: <a>a</a> vs. </span>
+      <span>escaped: &lt;a&gt;a&lt;/a&gt;</span>
+    </li>
+    <li>
+      <span>1</span>
+      <span>unescaped: <i>italic</i> vs. </span>
+      <span>escaped: &lt;i&gt;italic&lt;/i&gt;</span>
+    </li>
+    <li>
+      <span>2</span>
+      <span>unescaped: <strong>bold</strong> vs. </span>
+      <span>escaped: &lt;strong&gt;bold&lt;/strong&gt;</span>
+    </li>
+    </ul>
+  ```
