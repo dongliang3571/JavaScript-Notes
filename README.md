@@ -15,6 +15,105 @@ Strict mode makes several changes to normal JavaScript semantics.
   var v = "Hi!  I'm a strict mode script!"; // Now this line of code is in strict mode
   ```
 
+## Promises and callbacks
+callback function can be either asynchronous or synchronous
+  - synchronous
+  
+  For example, the .forEach function takes a callback but is synchronous.
+  
+  ```javascript
+  var available = false;
+  [1,2,3].forEach( function(){
+    available = true;
+  });
+  //code here runs after the whole .forEach has run,
+  //so available === true here
+  ```
+
+  - asynchronous
+  
+  The setTimeout takes a callback too and is asynchronous.
+  
+  ```javascript
+  function myFunction( fn ) {
+    setTimeout( function() {
+        fn(1,2,3);
+    }, 0 );
+  }
+
+  var available = false;
+  myFunction( function() {
+    available = true;
+  });
+  //available is never true here
+  ```
+
+### Usage of callbacks
+
+  ```javascript
+  Something.save(function(err) {  
+    if (err)  {
+      //error handling
+      return;
+    }
+    console.log('success');
+  });
+  ```
+  
+### Write functions with callback
+
+  ```javascript
+  function save(callback) {
+    var success = doSomethingToSaveData();
+    if (success) {
+      var err = new Error();
+    } else {
+      err = null;
+    }
+    callback(err);
+  }
+  ```
+
+### Usage of promise
+
+  ```javacript
+  // Promises Example
+  saveSomething()  
+    .then(updateOtherthing)
+    .then(deleteStuff)  
+    .then(logResults);
+  ```
+
+### Write promise
+What you need to do is wrapping the callback the original function call with a Promise, like this:
+
+  ```javacript
+  function saveToTheDb(value) {  
+    return new Promise(function(resolve, reject) {
+      db.values.insert(value, function(err, user) { // remember error first ;)
+        if (err) {
+          return reject(err); // don't forget to return here
+        }
+        resolve(user);
+      })
+    }
+  }
+  ```
+
+ 
+### Support both callback and promise
+
+  ```javascript
+  function foo(cb) {  
+    if (cb) {
+      return cb();
+    }
+    return new Promise(function (resolve, reject) {
+    });
+  }
+  ```
+
+
 ## Import and Export
 - Export
   ```javascript
