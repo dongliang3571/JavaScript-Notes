@@ -45,7 +45,7 @@ callback function can be either asynchronous or synchronous
   myFunction( function() {
     available = true;
   });
-  //available is never true here
+  console.log(available); // print false because it won't wait setTimeout to complete, avaiable was false initially
   ```
 
 ### Usage of callbacks
