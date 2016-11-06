@@ -230,6 +230,23 @@ myObj[obj]              = "Object";
 myObj[""]               = "Even an empty string";
 
 ```
+
+### List all property for an Object
+
+```javascript
+var arr = [1, 2, 3];
+Object.getOwnPropertyNames(arr)
+//  ["0", "1", "2", "length"]
+```
+
+### Get type of the object
+
+```javascript
+
+Object.prototype.toString.call([1, 2])
+//  [object Array]
+```
+
  
 ## Array
 
