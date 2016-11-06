@@ -231,8 +231,57 @@ myObj[""]               = "Even an empty string";
 
 ```
  
+## Array
 
-  
+### Some bult-in method
+
+```javascript
+
+// Slicing array
+var arr = [1, 2, 3]
+arr.slice();  // [1, 2, 3]
+arr.slice(1);  // [2, 3]
+arr.slice(1, 3);  // [2, 3]
+
+// Determines whether the passed value is an Array
+Array.isArray([1, 2, 3]); // true
+```
+
+### Some syntax
+
+```javascript
+
+// bad
+const items = new Array();
+
+// good
+const items = [];
+
+```
+
+```javascript
+const someStack = [];
+
+// bad
+someStack[someStack.length] = 'abracadabra';
+
+// good
+someStack.push('abracadabra');
+```
+
+Closure can omit return if body consists of a single statment
+
+```javascript
+// good
+[1, 2, 3].map((x) => {
+  const y = x + 1;
+  return x * y;
+});
+
+// good
+[1, 2, 3].map(x => x + 1);
+```
+
 # JavaScript Template Engine
 
 ## Handlebars
