@@ -164,7 +164,74 @@ What you need to do is wrapping the callback the original function call with a P
   ///////////////// import core module(built-in module) ///////////////////
   var coreModule = require('express');  // No suffix .js
   ```
-  
+ 
+## Objects
+
+Access object attributes by dot(.) notation
+
+```javascript
+var myCar = new Object();
+myCar.make = "Ford";
+myCar.model = "Mustang";
+myCar.year = 1969;
+```
+
+Access object attributes using a bracket notation
+
+```javascript
+myCar["make"] = "Ford";
+myCar["model"] = "Mustang";
+myCar["year"] = 1969;
+```
+
+You can add any attribute to a object on the fly
+
+```javascript
+function Person(first, last, age, eyecolor) {
+    this.firstName = first;
+    this.lastName = last;
+    this.age = age;
+    this.eyeColor = eyecolor;
+}
+
+var myFather = new Person("John", "Doe", 50, "blue");
+myFather.nationality = "English"; //The property will be added to myFather object
+
+////// This won't work //////
+Person.nationality = "English";
+
+// either you can do:
+function Person(first, last, age, eyecolor) {
+    this.firstName = first;
+    this.lastName = last;
+    this.age = age;
+    this.eyeColor = eyecolor;
+    this.nationality = "English"
+}
+
+// or you can do:
+Person.prototype.nationality = "English";
+
+```
+
+An object property name can be any valid JavaScript string, or anything that can be converted to a string, including the empty string. However, any property name that is not a valid JavaScript identifier (for example, a property name that has a space or a hyphen, or that starts with a number) can only be accessed using the square bracket notation.
+
+```javascript
+var myObj = new Object(),
+    str = "myString",
+    rand = Math.random(),
+    obj = new Object();
+
+myObj.type              = "Dot syntax";
+myObj["date created"]   = "String with space";
+myObj[str]              = "String value";
+myObj[rand]             = "Random Number";
+myObj[obj]              = "Object";
+myObj[""]               = "Even an empty string";
+
+```
+ 
+
   
 # JavaScript Template Engine
 
