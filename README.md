@@ -299,6 +299,19 @@ Closure can omit return if body consists of a single statment
 [1, 2, 3].map(x => x + 1);
 ```
 
+# NodeJS
+
+```javascript
+
+// next() with no arguments says "just kidding, I don't actual want 
+// to handle this". It goes back in and tries to find the next route 
+// that would match.
+
+// Example: request is taken by middleware first, if you called next() 
+// in middleware, it will send the request to controller.
+next();
+```
+
 # JavaScript Template Engine
 
 ## Handlebars
