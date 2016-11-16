@@ -14,7 +14,21 @@ Strict mode makes several changes to normal JavaScript semantics.
   "use strict";
   var v = "Hi!  I'm a strict mode script!"; // Now this line of code is in strict mode
   ```
+  
+  ```javascript
+  "use strict";
+  x = 3.14;       // This will cause an error because x is not declared
+  ```
+  
+  ```javascript
+  "use strict";
+  myFunction();
 
+  function myFunction() {
+      y = 3.14;   // This will also cause an error because y is not declared
+  }
+  ```
+  
 ## Promises and callbacks
 callback function can be either asynchronous or synchronous
   - synchronous
