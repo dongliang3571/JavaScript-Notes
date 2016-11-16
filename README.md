@@ -247,7 +247,47 @@ Object.prototype.toString.call([1, 2])
 //  [object Array]
 ```
 
+Use object method shorthand. eslint: `object-shorthand` jscs: `requireEnhancedObjectLiterals`
+
+```javascript
+// bad
+const atom = {
+  value: 1,
+
+  addValue: function (value) {
+    return atom.value + value;
+  },
+};
+
+// good
+const atom = {
+  value: 1,
+
+  addValue(value) {
+    return atom.value + value;
+  },
+};
  
+```
+
+Use property value shorthand. eslint: `object-shorthand` jscs: `requireEnhancedObjectLiterals`
+
+```javascript
+//  Why? It is shorter to write and descriptive
+
+const lukeSkywalker = 'Luke Skywalker';
+
+// bad
+const obj = {
+  lukeSkywalker: lukeSkywalker,
+};
+
+// good
+const obj = {
+  lukeSkywalker,
+};
+```
+
 ## Array
 
 ### Some bult-in method
