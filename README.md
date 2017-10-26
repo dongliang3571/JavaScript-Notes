@@ -29,6 +29,22 @@ Strict mode makes several changes to normal JavaScript semantics.
   }
   ```
   
+## Context vs. Scope
+
+[Understanding Scope and Context in JavaScript](http://ryanmorr.com/understanding-scope-and-context-in-javascript/)
+
+The first important thing to clear up is that context and scope are not the same. I have noticed many developers over the years often confuse the two terms (myself included), incorrectly describing one for the other. To be fair, the terminology has become quite muddled over the years.
+
+Every function invocation has both a scope and a context associated with it. Fundamentally, scope is function-based while context is object-based. In other words, scope pertains to the variable access of a function when it is invoked and is unique to each invocation. Context is always the value of the `this` keyword which is a reference to the object that "owns" the currently executing code.
+
+```javascript
+// define a function
+var f = function(){console.log(this)};
+
+f(); //calling the function, it prints window(global) object
+new f(); // create a new object, it prints f object
+```
+
 ## Promises and callbacks
 callback function can be either asynchronous or synchronous
   - synchronous
