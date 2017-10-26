@@ -1,5 +1,7 @@
 # JavaScript-Notes
 
+THis guy is good http://ryanmorr.com/
+
 ## Strict mode
 Strict mode makes several changes to normal JavaScript semantics.
 
