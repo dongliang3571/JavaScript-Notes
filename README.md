@@ -434,6 +434,20 @@ Closure can omit return if body consists of a single statment
 
 # NodeJS
 
+The main event loop is single-threaded by nature. But most of the i/o (network, disk, etc) is run on separate threads, because the i/o APIs in Node.js are asynchronous/non-blocking by design, in order to accommodate the event loop.
+
+However, in some ways, calling Node asynchronous is a misnomer IMO, because almost all the code that the developer sees is in fact synchronous, not asynchronous. In other words, for the average program a Node.js developer writes, all the asynchrony is abstracted away inside the i/o related APIs.
+
+Just because you don’t see it, doesn’t mean it’s not there or that it’s not important.
+
+One of the biggest pluses about Node is the very fact that more often than not all the code the developer writes is running on one thread in an event loop – that’s the rub – you don’t have to deal with a multi-threaded environment because it’s abstracted away.
+
+As long as you don’t do computationally heavy work on the main Javascript thread, then you are golden, because the slow I/O stuff is taken care of for you by the asynchronous non-blocking I/O libraries. If you do need to do computationally heavy work (CPU bound work), don’t do it on the main thread, instead fork a child_process and run it on a separate thread than the main Javascript event loop thread.
+
+So yes, you can’t get away from multithreading, even in Node.js. However, with the Node.js event loop, you can truly avoid many of the pitfalls of more traditional multithreaded servers and programs.
+
+Let me give you an analogy. Clientside Javascript has no traditional I/O. Node.js was created in the first place because Javascript had no existing i/o libraries so they could start clean with non-blocking i/o. For the client, I/O takes the form of AJAX requests. AJAX is by default asynchronous. If AJAX were synchronous then it would lock up the front-end. By extension, the same thing is true with Node.js. If I/O in Node was synchronous/blocking then it would lock up the event-loop. Instead asynchronous/non-blocking i/o APIs in Node allow Node to utilize background threads that do the I/O work behind the scenes, thus allowing the event loop to continue ticking around and around freely, about once every 20 milliseconds.
+
 ```javascript
 
 // next() with no arguments says "just kidding, I don't actual want 
